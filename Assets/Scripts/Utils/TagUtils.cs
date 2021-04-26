@@ -5,5 +5,7 @@ namespace Utils
        public static string Wall =>  "Wall";
        public static string Player => "Player";
        public static string Weapon => "Weapon";
+       public static string Bullet => "Bullet";
+       public static string SmasherObstacle => "Smasher_Obstacle";
     }
 }

@@ -40,24 +40,22 @@ namespace Weapon
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag(TagUtils.Wall))
+            if (collision.gameObject.CompareTag(TagUtils.Player)) DestroyBullet();
+            else if (totalHitWall >= destroyWhenHitWall) DestroyBullet();
+            else
             {
-                if (totalHitWall >= destroyWhenHitWall) OnBulletEnded();
-                else
-                {
-                    Vector2 wallNormal = collision.contacts[0].normal;
-                    dir = Vector2.Reflect(lastVelocity.normalized, wallNormal);
+                Vector2 wallNormal = collision.contacts[0].normal;
+                dir = Vector2.Reflect(lastVelocity.normalized, wallNormal);
 
-                    rb.velocity = dir * speed;
-                    totalHitWall++;
-                } 
+                rb.velocity = dir * speed;
+                totalHitWall++;
             }
         }
 
         /// <summary>
         /// di panggil ketika peluru sudah melebihi total maksimal pantulan ke dinding
         /// </summary>
-        private void OnBulletEnded()
+        private void DestroyBullet()
         {
             Destroy(gameObject);
         }
