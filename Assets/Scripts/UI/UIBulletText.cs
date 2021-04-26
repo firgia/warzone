@@ -20,6 +20,5 @@ public class UIBulletText : MonoBehaviour
     void Update()
     {
         text.text = "total peluru x " + weaponController.CurrentBullet;
-        Debug.Log("test");
     }
 }
