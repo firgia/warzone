@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
-namespace Character
+namespace AI
 {
-    public class EnemyController : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody2D))]
+    public abstract class Enemy : MonoBehaviour
     {
         
         void Start()
@@ -28,11 +29,13 @@ namespace Character
             }
         }
 
+  
         /// <summary>
         /// di gunakan jika dibutuhkan efect phisic ketika musuh mati
         /// </summary>
         private void DeathUsingRagdoll()
         {
+            /// nanti di isi effect ragdoll
             Destroy(gameObject);
         }
     }

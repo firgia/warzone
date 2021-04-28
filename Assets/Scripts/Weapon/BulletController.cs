@@ -40,7 +40,7 @@ namespace Weapon
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag(TagUtils.Player)) DestroyBullet();
+            if (collision.gameObject.CompareTag(TagUtils.Enemy)) DestroyBullet();
             else if (totalHitWall >= destroyWhenHitWall) DestroyBullet();
             else
             {
@@ -53,7 +53,7 @@ namespace Weapon
         }
 
         /// <summary>
-        /// di panggil ketika peluru sudah melebihi total maksimal pantulan ke dinding
+        /// di panggil ketika peluru sudah melebihi total maksimal pantulan ke objek lain
         /// </summary>
         private void DestroyBullet()
         {
