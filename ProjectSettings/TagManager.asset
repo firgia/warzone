@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - SmasherObstacle
   - Enemy
+  - FxTemporaire
+  - ExplosionObstacle
   layers:
   - Default
   - TransparentFX

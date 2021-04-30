@@ -492,7 +492,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3109606183693016088}
   - component: {fileID: 3109606183693016089}
-  - component: {fileID: 3012286347197654043}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -535,22 +534,6 @@ MonoBehaviour:
   offsetRotation: 90
   hand: {fileID: 3109606183167827342}
   direction: 1
---- !u!70 &3012286347197654043
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3109606183693016103}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0149822235, y: 0.7341409}
-  m_Size: {x: 1.2191582, y: 2.6480713}
-  m_Direction: 0
 --- !u!1 &3109606183844628435
 GameObject:
   m_ObjectHideFlags: 0

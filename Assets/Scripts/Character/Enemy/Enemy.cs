@@ -35,6 +35,10 @@ namespace AI
             }
         }
 
+        private void Start()
+        {
+            DisableRagdoll();
+        }
         /// <summary>
         /// mematikan effect ragdoll 
         /// </summary>
@@ -66,10 +70,30 @@ namespace AI
         public IEnumerator DeathUsingRagdoll()
         {
             EnableRagdoll();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
+            Death();
+        }
+
+
+        public void Death()
+        {
             GameObject particle = Instantiate(particleDeathPrefab.gameObject);
             particle.transform.position = particlePos.position;
-            Destroy(gameObject,0.1f);
+            Destroy(gameObject);
+        }
+
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag(TagUtils.Bullet) ||
+                collision.gameObject.CompareTag(TagUtils.SmasherObstacle))
+            {
+                StartCoroutine(DeathUsingRagdoll());
+            }
+            else if ( collision.gameObject.CompareTag(TagUtils.ExplosionObstacle))
+            {
+                Death();
+            }
         }
 
     }
