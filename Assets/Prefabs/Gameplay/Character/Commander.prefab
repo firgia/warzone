@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7092525099976922916}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 2041408437243778611}
   m_Layer: 0
   m_Name: Hand_L
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 2129896286016132776}
   m_Layer: 0
   m_Name: Foot_R
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -672,6 +672,8 @@ MonoBehaviour:
   - {fileID: 6292042816126307202}
   - {fileID: 6292042815883196507}
   - {fileID: 6292042816958294335}
+  particlePos: {fileID: 6292042816581998439}
+  particleDeathPrefab: {fileID: 2702633956267442987, guid: f2630ad712b7b8e4dbfb03494c13d303, type: 3}
   cCollider: {fileID: 0}
   rb: {fileID: 0}
 --- !u!70 &2775921183215261125
@@ -704,7 +706,7 @@ GameObject:
   - component: {fileID: 3980326317432157261}
   m_Layer: 0
   m_Name: Hand_R
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1076,7 +1078,7 @@ GameObject:
   - component: {fileID: 9110107290962001773}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1240,7 +1242,7 @@ GameObject:
   - component: {fileID: 7405188467420425145}
   m_Layer: 0
   m_Name: Foot_L
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

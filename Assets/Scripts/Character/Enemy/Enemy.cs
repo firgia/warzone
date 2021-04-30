@@ -8,13 +8,17 @@ namespace AI
     [RequireComponent(typeof(Rigidbody2D),typeof(CapsuleCollider2D))]
     public abstract class Enemy : MonoBehaviour
     {   
-        [Header("Setting Ragdoll")]
+        [Header("Ragdoll")]
         [SerializeField] private GameObject[] bodyPart;
-        [HideInInspector]  public CapsuleCollider2D cCollider;
+        [Header("Particle")]
+        [SerializeField] private Transform particlePos;
+        public ParticleSystem particleDeathPrefab;
+        [HideInInspector] public CapsuleCollider2D cCollider;
         [HideInInspector] public Rigidbody2D rb;
-
+        
         private List<CapsuleCollider2D> _ragdollCollider = new List<CapsuleCollider2D>();
         private List<Rigidbody2D> _ragdollRb = new List<Rigidbody2D>();
+
 
         private void Awake()
         {
@@ -40,7 +44,7 @@ namespace AI
 
             cCollider.enabled = true;
 
-            foreach(CapsuleCollider2D cc in _ragdollCollider) cc.enabled = false;
+            foreach(CapsuleCollider2D cc in _ragdollCollider) cc.isTrigger = true;
             foreach (Rigidbody2D rb in _ragdollRb) rb.isKinematic = true;
         }
 
@@ -51,18 +55,22 @@ namespace AI
         {
             rb.gravityScale = 0;
             cCollider.enabled = false;
-            foreach (CapsuleCollider2D cc in _ragdollCollider) cc.enabled = true;
-            foreach (Rigidbody2D rb in _ragdollRb) rb.isKinematic = false;
+            foreach (CapsuleCollider2D cc in _ragdollCollider) cc.isTrigger = false;
+            foreach (Rigidbody2D rb in _ragdollRb)  rb.isKinematic = false; 
         }
 
   
         /// <summary>
         /// di gunakan jika dibutuhkan efect phisic ketika musuh mati
         /// </summary>
-        public void DeathUsingRagdoll()
+        public IEnumerator DeathUsingRagdoll()
         {
             EnableRagdoll();
-            Destroy(gameObject,3);
+            yield return new WaitForSeconds(1);
+            GameObject particle = Instantiate(particleDeathPrefab.gameObject);
+            particle.transform.position = particlePos.position;
+            Destroy(gameObject,0.1f);
         }
+
     }
 }

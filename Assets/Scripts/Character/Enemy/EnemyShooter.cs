@@ -25,7 +25,7 @@ namespace AI
             if (collision.gameObject.CompareTag(TagUtils.Bullet) ||
                 collision.gameObject.CompareTag(TagUtils.SmasherObstacle))
             {
-                DeathUsingRagdoll();
+               StartCoroutine(DeathUsingRagdoll());
             }
         }
     }
