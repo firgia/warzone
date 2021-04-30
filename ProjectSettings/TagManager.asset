@@ -7,7 +7,8 @@ TagManager:
   - Wall
   - Weapon
   - Bullet
-  - Smasher_Obstacle
+  - SmasherObstacle
+  - Enemy
   layers:
   - Default
   - TransparentFX
