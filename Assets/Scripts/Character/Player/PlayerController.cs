@@ -13,6 +13,7 @@ namespace Character
         }
 
         [Header("Character Setting")]
+        [SerializeField] private float offsetRotation = 0;
         [SerializeField] private GameObject hand;
         [SerializeField] private CharacterDirection direction = CharacterDirection.Right;
 
@@ -69,7 +70,7 @@ namespace Character
             diff.Normalize();
 
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            hand.transform.localRotation = Quaternion.Euler(0f, 0f, (direction == CharacterDirection.Right)? rot_z : -(rot_z + 180));
+            hand.transform.localRotation = Quaternion.Euler(0f, 0f, ((direction == CharacterDirection.Right)? rot_z : -(rot_z + 180)) + offsetRotation);
         }
     
         #endregion

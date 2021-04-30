@@ -56,15 +56,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3109606182762086705}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.601, y: 0.028, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.70710707, w: 0.7071066}
+  m_LocalPosition: {x: 0.115, y: -0.52, z: 0}
   m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 2}
   m_Children:
   - {fileID: 3109606183849797531}
   - {fileID: 3109606183554430251}
   m_Father: {fileID: 3109606183167827343}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &3109606182762086708
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -382,14 +382,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3109606183405562781}
-  m_LocalRotation: {x: -0, y: -0, z: 0.6207348, w: 0.7840206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3109606184337711845}
   m_Father: {fileID: 3109606183167827343}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 76.74}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3109606183473168034
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3109606183693016088}
   - component: {fileID: 3109606183693016089}
+  - component: {fileID: 3012286347197654043}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -531,8 +532,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fccc3d5fc0b75479f5f10d1474c9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetRotation: 90
   hand: {fileID: 3109606183167827342}
   direction: 1
+--- !u!70 &3012286347197654043
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109606183693016103}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0149822235, y: 0.7341409}
+  m_Size: {x: 1.2191582, y: 2.6480713}
+  m_Direction: 0
 --- !u!1 &3109606183844628435
 GameObject:
   m_ObjectHideFlags: 0
