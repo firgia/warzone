@@ -4744,4 +4744,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoDestroy: 1
-  delayAutoDestroy: 0.2
+  delayAutoDestroy: 0.3
