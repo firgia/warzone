@@ -7,6 +7,7 @@ namespace Utils
        public static string Weapon => "Weapon";
        public static string Bullet => "Bullet";
        public static string SmasherObstacle => "SmasherObstacle";
+       public static string ExplosionObstacle => "ExplosionObstacle";
        public static string Enemy => "Enemy";
     }
 }
