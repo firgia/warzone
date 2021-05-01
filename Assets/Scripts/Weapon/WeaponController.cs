@@ -12,23 +12,32 @@ namespace Weapon
         [SerializeField] private BulletController bulletPrefab;
         [SerializeField] private int totalBullet = 5;
 
+        private int currentBullet;
 
-        private int _currentBullet;
+        /// <summary>
+        /// sisa peluru saat ini
+        /// </summary>
+        public int CurrentBullet => currentBullet;
+        
+        /// <summary>
+        /// total maksimal peluru
+        /// </summary>
+        public int TotalBullet => totalBullet;
 
-        public int CurrentBullet => _currentBullet;
-        public int MaxBullet => totalBullet;
 
-        void Start()
+        private void Awake()
         {
-            _currentBullet = totalBullet;
+            currentBullet = totalBullet;
         }
-
  
         void Update()
         {
             InputController();
         }
 
+        /// <summary>
+        /// penembakan akan di jalankan ketika pengguna melakukan UP input (melepas jari dari layar / melepas tekanan input kiri mouse)
+        /// </summary>
         void InputController()
         {
             if (Input.touchSupported)
@@ -37,13 +46,13 @@ namespace Weapon
                 {
                     Touch touch = Input.GetTouch(0);
 
-                    if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+                    if(touch.phase == TouchPhase.Moved)
                     {
                         OnInputDragWeapon(touch.position);
                     }
                     else if(touch.phase == TouchPhase.Ended)
                     {
-                        if (_currentBullet > 0)
+                        if (currentBullet > 0)
                         {
                             Shoot();
                         }
@@ -58,7 +67,7 @@ namespace Weapon
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
-                    if (_currentBullet > 0)
+                    if (currentBullet > 0)
                     {
                         Shoot();
                     }
@@ -82,16 +91,23 @@ namespace Weapon
             newBullet.Shoot(dir);
             OnShoot();
         }
+
         #region handler 
-       
+        /// <summary>
+        /// ketika pengguna sedang melakukan drag
+        /// </summary>
+        /// <param name="position"></param>
         void OnInputDragWeapon(Vector2 position)
         {
            
         }
 
+        /// <summary>
+        /// ketika terjadi penembakan
+        /// </summary>
         void OnShoot()
         {
-            _currentBullet--;
+            currentBullet--;
         }
         #endregion
     }

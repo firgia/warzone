@@ -11,9 +11,12 @@ namespace Obstacle
         [SerializeField] private ParticleSystem particleDestroyPrefab;
         
         private int destroyWhenHit = 2;
-
         private int totalHit = 1;
 
+        /// <summary>
+        /// Kayu akan hancur jika sudah hit beberapa objek musuh dan peluru
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag(TagUtils.Enemy) || collision.gameObject.CompareTag(TagUtils.Bullet))
@@ -23,11 +26,12 @@ namespace Obstacle
             }
         }
 
+        /// <summary>
+        /// menghancurkan kayu
+        /// </summary>
         private void DestroyWood()
         {
-            GameObject particle = Instantiate(particleDestroyPrefab.gameObject);
-            particle.transform.position = transform.position;
-
+            Instantiate(particleDestroyPrefab.gameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

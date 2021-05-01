@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
-[RequireComponent(typeof(Explosion))]
-public class TNT : MonoBehaviour
+namespace Obstacle
 {
-    [Header("Particle")]
-    [SerializeField] private ParticleSystem particleExplosionPrefab;
-
-    private Explosion explosion;
-
-    private void Start()
+    [RequireComponent(typeof(Explosion))]
+    public class TNT : MonoBehaviour
     {
-        explosion = GetComponent<Explosion>();
-    }
+        [Header("Particle")]
+        [SerializeField] private ParticleSystem particleExplosionPrefab;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(TagUtils.Bullet))
+        private Explosion explosion;
+
+        private void Awake()
         {
-            Instantiate(particleExplosionPrefab.gameObject,transform.position,Quaternion.identity);
-            explosion.Launch();
+            explosion = GetComponent<Explosion>();
+        }
+
+        /// <summary>
+        /// TNT di ledakan ketika terkena hit oleh objek yang mempunyai tag bullet
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag(TagUtils.Bullet))
+            {
+                Instantiate(particleExplosionPrefab.gameObject, transform.position, Quaternion.identity);
+                explosion.Launch();
+            }
         }
     }
 }
