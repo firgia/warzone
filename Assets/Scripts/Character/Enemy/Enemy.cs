@@ -10,35 +10,39 @@ namespace AI
     {   
         [Header("Ragdoll")]
         [SerializeField] private GameObject[] bodyPart;
+
         [Header("Particle")]
         [SerializeField] private Transform particlePos;
-        public ParticleSystem particleDeathPrefab;
-        [HideInInspector] public CapsuleCollider2D cCollider;
-        [HideInInspector] public Rigidbody2D rb;
-        
-        private List<CapsuleCollider2D> _ragdollCollider = new List<CapsuleCollider2D>();
-        private List<Rigidbody2D> _ragdollRb = new List<Rigidbody2D>();
+        [SerializeField] private ParticleSystem particleDeathPrefab;
 
+        private CapsuleCollider2D cCollider;
+        private Rigidbody2D rb;
+
+        private List<CapsuleCollider2D> listCCollider;
+        private List<Rigidbody2D> listRb;
 
         private void Awake()
         {
             cCollider = GetComponent<CapsuleCollider2D>();
             rb = GetComponent<Rigidbody2D>();
 
+            listCCollider = new List<CapsuleCollider2D>();
+            listRb = new List<Rigidbody2D>();
+
+            // list collider dan list rigidbody di gunakan untuk mematikan dan menjalankan ragdoll
             foreach(GameObject obj in bodyPart)
             {
                 CapsuleCollider2D cc = obj.GetComponent<CapsuleCollider2D>();
                 Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
 
-                if(cc != null) _ragdollCollider.Add(cc);
-                if(rb != null) _ragdollRb.Add(rb);
+                if(cc != null) listCCollider.Add(cc);
+                if(rb != null) listRb.Add(rb);
             }
         }
 
-        private void Start()
-        {
-            DisableRagdoll();
-        }
+        private void Start() => DisableRagdoll();
+        
+        #region Ragdoll
         /// <summary>
         /// mematikan effect ragdoll 
         /// </summary>
@@ -48,8 +52,8 @@ namespace AI
 
             cCollider.enabled = true;
 
-            foreach(CapsuleCollider2D cc in _ragdollCollider) cc.isTrigger = true;
-            foreach (Rigidbody2D rb in _ragdollRb) rb.isKinematic = true;
+            foreach(CapsuleCollider2D cc in listCCollider) cc.isTrigger = true;
+            foreach (Rigidbody2D rb in listRb) rb.isKinematic = true;
         }
 
         /// <summary>
@@ -59,13 +63,14 @@ namespace AI
         {
             rb.gravityScale = 0;
             cCollider.enabled = false;
-            foreach (CapsuleCollider2D cc in _ragdollCollider) cc.isTrigger = false;
-            foreach (Rigidbody2D rb in _ragdollRb)  rb.isKinematic = false; 
+            foreach (CapsuleCollider2D cc in listCCollider) cc.isTrigger = false;
+            foreach (Rigidbody2D rb in listRb)  rb.isKinematic = false; 
         }
+        #endregion
 
-  
+        #region Death
         /// <summary>
-        /// di gunakan jika dibutuhkan efect phisic ketika musuh mati
+        /// di gunakan jika dibutuhkan efek physic sebelum musuh mati
         /// </summary>
         public IEnumerator DeathUsingRagdoll()
         {
@@ -74,15 +79,21 @@ namespace AI
             Death();
         }
 
-
+        /// <summary>
+        /// digunakan ketika musuh mati
+        /// </summary>
         public void Death()
         {
-            GameObject particle = Instantiate(particleDeathPrefab.gameObject);
-            particle.transform.position = particlePos.position;
+            Instantiate(particleDeathPrefab.gameObject, particlePos.position, Quaternion.identity);
             Destroy(gameObject);
         }
+        #endregion
 
-
+        #region Hit
+        /// <summary>
+        /// musuh hanya akan mati jika dia kena hit object dengan tag 'Bullet', 'SmasherObstacle', dan 'ExplosionObstacle'
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag(TagUtils.Bullet) ||
@@ -95,6 +106,6 @@ namespace AI
                 Death();
             }
         }
-
+        #endregion
     }
 }
