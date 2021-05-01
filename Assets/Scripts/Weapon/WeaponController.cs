@@ -5,6 +5,7 @@ using Character;
 
 namespace Weapon
 {
+    [RequireComponent(typeof(LineRenderer))]
     public class WeaponController : MonoBehaviour
     {
         [SerializeField] private Transform projectilePos;
@@ -13,6 +14,9 @@ namespace Weapon
         [SerializeField] private int totalBullet = 5;
 
         private int currentBullet;
+        private LineRenderer lineRenderer;
+        private Ray2D ray;
+        private RaycastHit2D hit;
 
         /// <summary>
         /// sisa peluru saat ini
@@ -28,8 +32,15 @@ namespace Weapon
         private void Awake()
         {
             currentBullet = totalBullet;
+            lineRenderer = GetComponent<LineRenderer>();
         }
- 
+
+        private void Start()
+        {
+             lineRenderer.widthMultiplier = 0.2f;
+        }
+
+
         void Update()
         {
             InputController();
@@ -92,6 +103,43 @@ namespace Weapon
             OnShoot();
         }
 
+        /// <summary>
+        /// membuat garis untuk memprediksi arah peluru
+        /// </summary>
+        void DrawLine()
+        {
+            ray = new Ray2D(projectilePos.position, projectilePos.right);
+
+            lineRenderer.positionCount = 1;
+            lineRenderer.SetPosition(0, projectilePos.position);
+
+            float lenght = 5;
+
+            for (int i = 0; i < 2; i++)
+            {
+                hit = Physics2D.Raycast(ray.origin, ray.direction, lenght);
+                if (hit)
+                {
+                    lineRenderer.positionCount++;
+                    lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
+                    ray = new Ray2D(hit.point, Vector2.Reflect(ray.direction, hit.normal));
+                    lenght -= Vector2.Distance(ray.origin, hit.point);
+                }
+                else
+                {
+                    lineRenderer.positionCount++;
+                    lineRenderer.SetPosition(lineRenderer.positionCount - 1, ray.origin + ray.direction * lenght);
+                }
+            }
+        }
+
+        /// <summary>
+        /// menghapus garis prediksi arah peluru
+        /// </summary>
+        void RemoveLine()
+        {
+            lineRenderer.positionCount = 0;
+        }
         #region handler 
         /// <summary>
         /// ketika pengguna sedang melakukan drag
@@ -99,7 +147,7 @@ namespace Weapon
         /// <param name="position"></param>
         void OnInputDragWeapon(Vector2 position)
         {
-           
+            DrawLine();
         }
 
         /// <summary>
@@ -108,6 +156,7 @@ namespace Weapon
         void OnShoot()
         {
             currentBullet--;
+            RemoveLine();
         }
         #endregion
     }
