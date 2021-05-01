@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Character
-    {
+{
     [ExecuteInEditMode]
-    public class PlayerController : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         enum CharacterDirection{
             Left,
@@ -18,13 +18,13 @@ namespace Character
         [SerializeField] private CharacterDirection direction = CharacterDirection.Right;
 
         private CharacterDirection prevRotSelected = CharacterDirection.Right;
-        private bool _isInputValid;
+        private bool isInputValid;
         
         /// <summary>
         /// true jika user melakukan drag dari atas, depan dan bawah arah character
         /// false jika user melakukan drag ke arah belakang character
         /// </summary>
-        public bool isInputValid => _isInputValid;
+        public bool IsInputValid => isInputValid;
 
         void Start()
         {
@@ -38,6 +38,9 @@ namespace Character
         }
 
         #region Hand
+        /// <summary>
+        /// mengatur posisi tangan berdasarkan input
+        /// </summary>
         private void HandController()
         {
             if (Input.touchSupported)
@@ -63,8 +66,8 @@ namespace Character
         /// <param name="inputPosition">set posisi berdasarkan input</param>
         private void SetRotationHand(Vector3 inputPosition)
         {
-            _isInputValid = IsInputHandValid(Camera.main.ScreenToWorldPoint(inputPosition));
-            if (!_isInputValid) return;
+            isInputValid = IsInputHandValid(Camera.main.ScreenToWorldPoint(inputPosition));
+            if (!isInputValid) return;
 
             Vector3 diff = Camera.main.ScreenToWorldPoint(inputPosition) - hand.transform.position;
             diff.Normalize();
