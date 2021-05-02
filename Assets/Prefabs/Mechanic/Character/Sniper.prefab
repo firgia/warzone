@@ -654,8 +654,6 @@ MonoBehaviour:
   - {fileID: 7019684966210797097}
   particlePos: {fileID: 7019684965958907507}
   particleDeathPrefab: {fileID: 2702633956267442987, guid: f2630ad712b7b8e4dbfb03494c13d303, type: 3}
-  cCollider: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!50 &2995243610607591856
 Rigidbody2D:
   serializedVersion: 4
@@ -676,7 +674,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 5
 --- !u!70 &1971581783367618121
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
