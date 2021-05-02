@@ -26,23 +26,23 @@ namespace Weapon
 
         private void Awake()
         {
-           rb = GetComponent<Rigidbody2D>();
+           rb = GetComponent<Rigidbody2D>();   
         }
 
         void Start()
         {
             // peluru akan otomatis di hancurkan dalam beberapa detik, agar peluru yang keluar arena tetap hancur dan tidak di hitung di memory
             Destroy(gameObject, delayAutoDestroy);
+         
         }
      
         private void Update()
         {
-            if (isShoot)
-            {
-                rb.velocity = dir * speed * Time.timeScale;
-            }    
+            
+            if (isShoot) rb.velocity = dir * speed * Time.timeScale;
 
             lastVelocity = rb.velocity;
+            FixedRotation();
         }
 
         public void Shoot(Vector2 direction)
@@ -76,6 +76,16 @@ namespace Weapon
             totalHitWall++;
             GameObject particle = Instantiate(particleHitPrefab.gameObject);
             particle.transform.position = transform.position;
+        }
+
+        /// <summary>
+        /// menyesuaikan rotasi berdasarkan arah tujuan peluru
+        /// </summary>
+        void FixedRotation()
+        {
+            var dirRot = rb.velocity;
+            var angle = Mathf.Atan2(dirRot.y, dirRot.x) * Mathf.Rad2Deg;
+            rb.MoveRotation(angle);
         }
 
         /// <summary>

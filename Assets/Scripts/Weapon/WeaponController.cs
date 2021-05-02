@@ -97,8 +97,7 @@ namespace Weapon
             Vector2 _endPos = new Vector2(targetDirectionShoot.transform.position.x, targetDirectionShoot.transform.position.y);
             Vector2 dir = (_endPos - _startPos).normalized;
 
-            BulletController newBullet = Instantiate(bulletPrefab);
-            newBullet.transform.position = projectilePos.position;
+            BulletController newBullet = Instantiate(bulletPrefab,projectilePos.position,transform.rotation);
             newBullet.Shoot(dir);
             OnShoot();
         }
