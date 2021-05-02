@@ -97,7 +97,9 @@ namespace AI
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag(TagUtils.Bullet) ||
-                collision.gameObject.CompareTag(TagUtils.SmasherObstacle))
+                collision.gameObject.CompareTag(TagUtils.SmasherObstacle) ||
+                collision.gameObject.CompareTag(TagUtils.Helicopter)
+                )
             {
                 StartCoroutine(DeathUsingRagdoll());
             }
