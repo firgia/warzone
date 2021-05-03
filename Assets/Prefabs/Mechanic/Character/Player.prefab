@@ -653,6 +653,7 @@ MonoBehaviour:
   offsetRotation: 90
   hand: {fileID: 3109606183167827342}
   direction: 1
+  animatorHead: {fileID: 64246820564953784}
 --- !u!1 &3109606183844628435
 GameObject:
   m_ObjectHideFlags: 0
