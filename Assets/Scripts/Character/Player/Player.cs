@@ -16,6 +16,7 @@ namespace Character
         [SerializeField] private float offsetRotation = 0;
         [SerializeField] private GameObject hand;
         [SerializeField] private CharacterDirection direction = CharacterDirection.Right;
+        [SerializeField] private Animator animatorHead;
 
         private CharacterDirection prevRotSelected = CharacterDirection.Right;
         private bool isInputValid;
@@ -25,7 +26,8 @@ namespace Character
         /// false jika user melakukan drag ke arah belakang character
         /// </summary>
         public bool IsInputValid => isInputValid;
-
+        private bool isAiming;
+        
         void Start()
         {
 
@@ -35,6 +37,7 @@ namespace Character
         {
             CharacterRotationController();
             HandController();
+            AnimationController();
         }
 
         #region Hand
@@ -43,12 +46,14 @@ namespace Character
         /// </summary>
         private void HandController()
         {
+            isAiming = false;
             if (Input.touchSupported)
             {
                 if(Input.touchCount > 0)
                 {
                     Touch touch = Input.GetTouch(0);
                     SetRotationHand(touch.position);
+                    isAiming = true;
                 }
             }
             else
@@ -56,6 +61,7 @@ namespace Character
                 if (Input.GetMouseButton(0))
                 {
                     SetRotationHand(Input.mousePosition);
+                    isAiming = true;
                 }
             }
         }
@@ -121,6 +127,20 @@ namespace Character
                 );
         }
 
+        #endregion
+
+        #region Animasi
+        void AnimationController()
+        {
+            if (isAiming) AnimAngry();
+            else AnimIdle();
+        }
+
+        void AnimAngry()=> animatorHead.SetBool("Angry", true);
+
+        void AnimDeath() => animatorHead.SetBool("Death", true);
+
+        void AnimIdle() => animatorHead.SetBool("Angry", false);
         #endregion
     }
 }
