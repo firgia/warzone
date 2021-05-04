@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7092525099976922916}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 2041408437243778611}
   m_Layer: 0
   m_Name: Hand_L
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 2129896286016132776}
   m_Layer: 0
   m_Name: Foot_R
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 3980326317432157261}
   m_Layer: 0
   m_Name: Hand_R
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 9110107290962001773}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 7405188467420425145}
   m_Layer: 0
   m_Name: Foot_L
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

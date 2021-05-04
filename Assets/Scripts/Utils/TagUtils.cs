@@ -10,5 +10,6 @@ namespace Utils
        public static string ExplosionObstacle => "ExplosionObstacle";
         public static string Enemy => "Enemy";
        public static string Helicopter => "Helicopter";
+        public static string Rules => "Rules";
     }
 }

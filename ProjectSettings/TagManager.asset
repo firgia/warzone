@@ -12,6 +12,7 @@ TagManager:
   - FxTemporaire
   - ExplosionObstacle
   - Helicopter
+  - Rules
   layers:
   - Default
   - TransparentFX
