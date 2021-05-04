@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   destroyWhenHitWall: 5
-  delayAutoDestroy: 8
+  delayAutoDestroy: 3
   particleHitPrefab: {fileID: 5019445082145159934, guid: b2f69bc891b698d4eab70d7ab2c2c6ec, type: 3}
   particleDestroyPrefab: {fileID: 6429301952471136038, guid: ae0eec0f97fe7344dbd9a99ae8852b4a, type: 3}
 --- !u!50 &4090685712648072409

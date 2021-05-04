@@ -11,7 +11,7 @@ namespace Weapon
         [SerializeField] private float speed = 15;
         [Header("Destroy")]
         [SerializeField] private int destroyWhenHitWall = 5;
-        [SerializeField] private int delayAutoDestroy = 8;
+        [SerializeField] private int delayAutoDestroy = 3;
         [Header("Particle")]
         [SerializeField] private ParticleSystem particleHitPrefab;
         [SerializeField] private ParticleSystem particleDestroyPrefab;
