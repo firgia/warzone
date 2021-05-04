@@ -132,7 +132,7 @@ MonoBehaviour:
   projectilePos: {fileID: 3109606183849797531}
   targetDirectionShoot: {fileID: 3109606183554430251}
   bulletPrefab: {fileID: 4090685712648072410, guid: a4368bdd21900084383e708f4676bb72, type: 3}
-  totalBullet: 100
+  totalBullet: 3
 --- !u!120 &1527320720828467365
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -38,11 +38,17 @@ namespace Character
         void Update()
         {
             CharacterRotationController();
+            #if UNITY_EDITOR
             if (EditorApplication.isPlaying)
             {
                 HandController();
                 AnimationController();
             }
+            #else
+            HandController();
+            AnimationController();
+            #endif
+
         }
 
         #region Hand

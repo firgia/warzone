@@ -12,7 +12,7 @@ namespace Weapon
         [SerializeField] private Transform projectilePos;
         [SerializeField] private Transform targetDirectionShoot;
         [SerializeField] private BulletController bulletPrefab;
-        private int totalBullet = 5;
+        [SerializeField] private int totalBullet = 3;
 
         private int currentBullet;
         private LineRenderer lineRenderer;
