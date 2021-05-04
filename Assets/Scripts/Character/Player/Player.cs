@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
+using UnityEditor;
 namespace Character
 {
     [ExecuteInEditMode]
@@ -19,15 +20,16 @@ namespace Character
         [SerializeField] private Animator animatorHead;
 
         private CharacterDirection prevRotSelected = CharacterDirection.Right;
-        private bool isInputValid;
+        private bool isRotationValid;
         
         /// <summary>
         /// true jika user melakukan drag dari atas, depan dan bawah arah character
         /// false jika user melakukan drag ke arah belakang character
         /// </summary>
-        public bool IsInputValid => isInputValid;
+        public bool IsRotationValid => isRotationValid;
         private bool isAiming;
-        
+        private bool inputValid = false;
+
         void Start()
         {
 
@@ -36,8 +38,11 @@ namespace Character
         void Update()
         {
             CharacterRotationController();
-            HandController();
-            AnimationController();
+            if (EditorApplication.isPlaying)
+            {
+                HandController();
+                AnimationController();
+            }
         }
 
         #region Hand
@@ -47,21 +52,35 @@ namespace Character
         private void HandController()
         {
             isAiming = false;
+            bool isHoverUI = EventSystem.current.IsPointerOverGameObject();
+        
+
             if (Input.touchSupported)
             {
+
                 if(Input.touchCount > 0)
                 {
                     Touch touch = Input.GetTouch(0);
-                    SetRotationHand(touch.position);
-                    isAiming = true;
+
+                    if (touch.phase == TouchPhase.Began) inputValid = !isHoverUI;
+                    else if(inputValid)
+                    {
+                        SetRotationHand(touch.position);
+                        isAiming = true;
+                    }
+                  
                 }
             }
             else
             {
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButtonDown(0)) inputValid = !isHoverUI;
+                else if (inputValid)
                 {
-                    SetRotationHand(Input.mousePosition);
-                    isAiming = true;
+                    if (Input.GetMouseButton(0))
+                    {
+                        SetRotationHand(Input.mousePosition);
+                        isAiming = true;
+                    }
                 }
             }
         }
@@ -72,8 +91,8 @@ namespace Character
         /// <param name="inputPosition">set posisi berdasarkan input</param>
         private void SetRotationHand(Vector3 inputPosition)
         {
-            isInputValid = IsInputHandValid(Camera.main.ScreenToWorldPoint(inputPosition));
-            if (!isInputValid) return;
+            isRotationValid = IsTargetRotationValid(Camera.main.ScreenToWorldPoint(inputPosition));
+            if (!isRotationValid) return;
 
             Vector3 diff = Camera.main.ScreenToWorldPoint(inputPosition) - hand.transform.position;
             diff.Normalize();
@@ -119,7 +138,7 @@ namespace Character
         /// </summary>
         /// <param name="inputWorldPosition"></param>
         /// <returns></returns>
-        private bool IsInputHandValid(Vector3 inputWorldPosition)
+        private bool IsTargetRotationValid(Vector3 inputWorldPosition)
         {
             return (
                 (direction == CharacterDirection.Right && inputWorldPosition.x > transform.position.x) ||

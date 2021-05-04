@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
+using UnityEngine.EventSystems;
 
 namespace Weapon
 {
@@ -28,6 +29,7 @@ namespace Weapon
         /// </summary>
         public int TotalBullet => totalBullet;
 
+        bool inputValid;
 
         private void Awake()
         {
@@ -51,36 +53,46 @@ namespace Weapon
         /// </summary>
         void InputController()
         {
+            bool isHoverUI = EventSystem.current.IsPointerOverGameObject();
             if (Input.touchSupported)
             {
                 if (Input.touchCount > 0)
                 {
                     Touch touch = Input.GetTouch(0);
 
-                    if(touch.phase == TouchPhase.Moved)
+
+                    if(touch.phase == TouchPhase.Began) inputValid = !isHoverUI;
+                    else if (inputValid)
                     {
-                        OnInputDragWeapon(touch.position);
-                    }
-                    else if(touch.phase == TouchPhase.Ended)
-                    {
-                        if (currentBullet > 0)
+                        if(touch.phase == TouchPhase.Moved)
                         {
-                            Shoot();
+                            OnInputDragWeapon(touch.position);
+                        }
+                        else if(touch.phase == TouchPhase.Ended)
+                        {
+                            if (currentBullet > 0)
+                            {
+                                Shoot();
+                            }
                         }
                     }
                 }
             }
             else
             {
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButtonDown(0))  inputValid = !isHoverUI;
+                else if (inputValid)
                 {
-                    OnInputDragWeapon(Input.mousePosition);
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    if (currentBullet > 0)
+                    if (Input.GetMouseButton(0))
                     {
-                        Shoot();
+                        OnInputDragWeapon(Input.mousePosition);
+                    }
+                    else if (Input.GetMouseButtonUp(0))
+                    {
+                        if (currentBullet > 0)
+                        {
+                            Shoot();
+                        }
                     }
                 }
             }
