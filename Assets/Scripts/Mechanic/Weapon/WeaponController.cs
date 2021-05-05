@@ -13,6 +13,7 @@ namespace Weapon
         [SerializeField] private Transform targetDirectionShoot;
         [SerializeField] private BulletController bulletPrefab;
         [SerializeField] private int totalBullet = 3;
+        [SerializeField] private AudioSource audioSource;
 
         private int currentBullet;
         private LineRenderer lineRenderer;
@@ -105,13 +106,13 @@ namespace Weapon
         /// <param name="inputPosition">tentukan target dari peluru yang akan di tembakkan</param>
         void Shoot()
         {
+            OnShoot();
             Vector2 _startPos = new Vector2(projectilePos.transform.position.x, projectilePos.transform.position.y);
             Vector2 _endPos = new Vector2(targetDirectionShoot.transform.position.x, targetDirectionShoot.transform.position.y);
             Vector2 dir = (_endPos - _startPos).normalized;
 
             BulletController newBullet = Instantiate(bulletPrefab,projectilePos.position,transform.rotation);
             newBullet.Shoot(dir);
-            OnShoot();
         }
 
         /// <summary>
@@ -166,6 +167,7 @@ namespace Weapon
         /// </summary>
         void OnShoot()
         {
+            audioSource.Play();
             currentBullet--;
             RemoveLine();
         }
