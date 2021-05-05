@@ -24,7 +24,7 @@ namespace Obstacle
         /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag(TagUtils.Bullet))
+            if (collision.gameObject.CompareTag(TagUtils.Bullet) || collision.gameObject.CompareTag(TagUtils.Helicopter))
             {
                 Instantiate(particleExplosionPrefab.gameObject, transform.position, Quaternion.identity);
                 explosion.Launch();

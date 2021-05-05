@@ -36,6 +36,10 @@ namespace Obstacle
         /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (collision.gameObject.CompareTag(TagUtils.ExplosionObstacle)){
+                isDestroy = true;
+                Destroy();
+            }
             if (collision.gameObject.CompareTag(TagUtils.Bullet))
             {
                 isHitBullet = true;
@@ -43,7 +47,10 @@ namespace Obstacle
             }
             else if(isHitBullet)
             {
-                if(!isDestroy) StartCoroutine(DestroyHelicopter());
+                if (!isDestroy) {
+                    isDestroy = true;
+                    StartCoroutine(DestroyHelicopter()); 
+                }
             }
         }
 
@@ -54,9 +61,14 @@ namespace Obstacle
         /// <returns></returns>
         IEnumerator DestroyHelicopter()
         {
-            isDestroy = true;
+           
             yield return new WaitForSeconds(1);
 
+            Destroy();
+        }
+
+        private void Destroy()
+        {
             Instantiate(particleExplosionPrefab.gameObject, transform.position, Quaternion.identity);
             explosion.Launch();
         }

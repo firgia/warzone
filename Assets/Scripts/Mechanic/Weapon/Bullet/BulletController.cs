@@ -57,6 +57,8 @@ namespace Weapon
         /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if(collision.gameObject.CompareTag(TagUtils.Helicopter) ||
+                collision.gameObject.CompareTag(TagUtils.ExplosionObstacle) )DestroyBullet();
             if (totalHitWall >= destroyWhenHitWall) DestroyBullet();
             else
             {
