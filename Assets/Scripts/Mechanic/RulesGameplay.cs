@@ -9,10 +9,17 @@ public class RulesGameplay : MonoBehaviour
     private WeaponController weapon;
     private GameObject[] enemy;   
 
+    private bool _isfinishGame = false;
+
     void Start()
     {
         weapon = GameObject.FindGameObjectWithTag(TagUtils.Weapon).GetComponent<WeaponController>();
         enemy = GameObject.FindGameObjectsWithTag(TagUtils.Enemy);
+    }
+
+    private void Update()
+    {
+       StartCoroutine(CheckingFinish());
     }
 
     /// <summary>
@@ -37,10 +44,24 @@ public class RulesGameplay : MonoBehaviour
     /// game dianggap selesai jika semua musuh sudah mati atau player tidak mempunyai peluru lagi
     /// </summary>
     /// <returns></returns>
-    public bool IsFinishGamePlay()
+    public bool IsFinishGamePlay() => _isfinishGame;
+
+    /// <summary>
+    /// di gunakan untuk mengecek apakah game sudah berakhir
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator CheckingFinish()
     {
-        return (GetTotalEnemy() == 0 || !HaveBullet());
+        if (GetTotalEnemy() == 0) _isfinishGame = true;
+        else if (!HaveBullet())
+        {
+             // ketika tidak punya peluru, kemungkinan ada musuh yang sudah terkena hit dan sedang menjalankan animasi mati,
+             // untuk itu perlu memerlukan delay sehingga tidak ada musuh yang di anggap hidup dalam delay tertentu
+             yield return new WaitForSeconds(3);
+            _isfinishGame = true;
+        }
     }
+
 
     /// <summary>
     /// level dianggap selesai jika player sudah membunuh semua musuh
