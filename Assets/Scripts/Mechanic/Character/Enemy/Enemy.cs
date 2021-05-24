@@ -21,6 +21,10 @@ namespace AI
         private List<CapsuleCollider2D> listCCollider;
         private List<Rigidbody2D> listRb;
 
+        private bool isDead = false;
+
+        public bool IsDead => isDead;
+
         private void Awake()
         {
             cCollider = GetComponent<CapsuleCollider2D>();
@@ -101,10 +105,12 @@ namespace AI
                 collision.gameObject.CompareTag(TagUtils.Helicopter)
                 )
             {
+                isDead = true;
                 StartCoroutine(DeathUsingRagdoll());
             }
             else if ( collision.gameObject.CompareTag(TagUtils.ExplosionObstacle))
             {
+                isDead = true;
                 Death();
             }
         }

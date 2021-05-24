@@ -3,23 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Weapon;
 using Utils;
+using AI;
 
 public class RulesGameplay : MonoBehaviour
 {
     private WeaponController weapon;
-    private GameObject[] enemy;   
+    private List<Enemy> enemy;   
 
-    private bool _isfinishGame = false;
 
     void Start()
     {
         weapon = GameObject.FindGameObjectWithTag(TagUtils.Weapon).GetComponent<WeaponController>();
-        enemy = GameObject.FindGameObjectsWithTag(TagUtils.Enemy);
-    }
+        var enemyObj = GameObject.FindGameObjectsWithTag(TagUtils.Enemy);
 
-    private void Update()
-    {
-       StartCoroutine(CheckingFinish());
+        enemy = new List<Enemy>();
+        foreach(GameObject obj in enemyObj)
+        {
+            Enemy _enemy = obj.GetComponent<Enemy>();
+
+            if(_enemy != null)
+            {
+                enemy.Add(_enemy);
+            }
+        }
     }
 
     /// <summary>
@@ -44,24 +50,14 @@ public class RulesGameplay : MonoBehaviour
     /// game dianggap selesai jika semua musuh sudah mati atau player tidak mempunyai peluru lagi
     /// </summary>
     /// <returns></returns>
-    public bool IsFinishGamePlay() => _isfinishGame;
-
-    /// <summary>
-    /// di gunakan untuk mengecek apakah game sudah berakhir
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator CheckingFinish()
+    public bool IsFinishGamePlay()
     {
-        if (GetTotalEnemy() == 0) _isfinishGame = true;
-        else if (!HaveBullet())
+        if(GetTotalEnemy() == 0 || !HaveBullet())
         {
-             // ketika tidak punya peluru, kemungkinan ada musuh yang sudah terkena hit dan sedang menjalankan animasi mati,
-             // untuk itu perlu memerlukan delay sehingga tidak ada musuh yang di anggap hidup dalam delay tertentu
-             yield return new WaitForSeconds(3);
-            _isfinishGame = true;
+            return true;
         }
+        return false;
     }
-
 
     /// <summary>
     /// level dianggap selesai jika player sudah membunuh semua musuh
@@ -92,9 +88,9 @@ public class RulesGameplay : MonoBehaviour
     public int GetTotalEnemy()
     {
         int totalEnemy = 0;
-        for(int i = 0; i < enemy.Length; i++)
+        for(int i = 0; i < enemy.Count; i++)
         {
-            if (enemy[i] != null) totalEnemy++;
+            if (enemy[i] != null && !enemy[i].IsDead) totalEnemy++;
         }
 
         return totalEnemy;
