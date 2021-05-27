@@ -694,6 +694,7 @@ MonoBehaviour:
   - {fileID: 6292042816958294335}
   particlePos: {fileID: 6292042816581998439}
   particleDeathPrefab: {fileID: 2702633956267442987, guid: f2630ad712b7b8e4dbfb03494c13d303, type: 3}
+  expressionAnim: {fileID: 5304807555014713242}
 --- !u!70 &2775921183215261125
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
