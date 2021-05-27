@@ -3,16 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Weapon;
 using Utils;
+using AI;
 
 public class RulesGameplay : MonoBehaviour
 {
     private WeaponController weapon;
-    private GameObject[] enemy;   
+    private List<Enemy> enemy;   
+
 
     void Start()
     {
         weapon = GameObject.FindGameObjectWithTag(TagUtils.Weapon).GetComponent<WeaponController>();
-        enemy = GameObject.FindGameObjectsWithTag(TagUtils.Enemy);
+        var enemyObj = GameObject.FindGameObjectsWithTag(TagUtils.Enemy);
+
+        enemy = new List<Enemy>();
+        foreach(GameObject obj in enemyObj)
+        {
+            Enemy _enemy = obj.GetComponent<Enemy>();
+
+            if(_enemy != null)
+            {
+                enemy.Add(_enemy);
+            }
+        }
     }
 
     /// <summary>
@@ -39,7 +52,11 @@ public class RulesGameplay : MonoBehaviour
     /// <returns></returns>
     public bool IsFinishGamePlay()
     {
-        return (GetTotalEnemy() == 0 || !HaveBullet());
+        if(GetTotalEnemy() == 0 || !HaveBullet())
+        {
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -71,9 +88,9 @@ public class RulesGameplay : MonoBehaviour
     public int GetTotalEnemy()
     {
         int totalEnemy = 0;
-        for(int i = 0; i < enemy.Length; i++)
+        for(int i = 0; i < enemy.Count; i++)
         {
-            if (enemy[i] != null) totalEnemy++;
+            if (enemy[i] != null && !enemy[i].IsDead) totalEnemy++;
         }
 
         return totalEnemy;
