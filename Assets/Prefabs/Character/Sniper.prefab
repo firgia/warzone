@@ -654,6 +654,7 @@ MonoBehaviour:
   - {fileID: 7019684966210797097}
   particlePos: {fileID: 7019684965958907507}
   particleDeathPrefab: {fileID: 2702633956267442987, guid: f2630ad712b7b8e4dbfb03494c13d303, type: 3}
+  expressionAnim: {fileID: 6719778279241821890}
 --- !u!50 &2995243610607591856
 Rigidbody2D:
   serializedVersion: 4
